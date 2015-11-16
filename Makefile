@@ -16,13 +16,13 @@ LIBTOOL_VERSION = 2.4.6-1
 LIBTOOL_URL = https://github.com/amylum/libtool/releases/download/$(LIBTOOL_VERSION)/libtool.tar.gz
 LIBTOOL_TAR = /tmp/libtool.tar.gz
 LIBTOOL_DIR = /tmp/libtool
-LIBTOOL_PATH = -I$(LIBTOOL_DIR)/usr/include -L$(LIBTOOL_DIR)/usr/lib
+LIBTOOL_PATH = --with-libltdl-prefix=$(LIBTOOL_DIR)/usr
 
 GMP_VERSION = 1.2-1
 GMP_URL = https://github.com/amylum/gmp/releases/download/$(GMP_VERSION)/gmp.tar.gz
 GMP_TAR = /tmp/gmp.tar.gz
 GMP_DIR = /tmp/gmp
-GMP_PATH = -I$(GMP_DIR)/usr/include -L$(GMP_DIR)/usr/lib
+GMP_PATH = --with-libgmp-prefix=$(GMP_DIR)/usr
 
 .PHONY : default submodule deps manual container deps build version push local
 
@@ -51,7 +51,7 @@ build: submodule deps
 	rm -rf $(BUILD_DIR)
 	cp -R upstream $(BUILD_DIR)
 	cd $(BUILD_DIR) && autoreconf -i
-	cd $(BUILD_DIR) && CC=musl-gcc CFLAGS='$(CFLAGS) $(LIBTOOL_PATH) $(GMP_PATH)' ./configure $(PATH_FLAGS) $(CONF_FLAGS)
+	cd $(BUILD_DIR) && CC=musl-gcc CFLAGS='$(CFLAGS)' ./configure $(PATH_FLAGS) $(CONF_FLAGS) $(LIBTOOL_PATH) $(GMP_PATH)
 	cd $(BUILD_DIR) && make DESTDIR=$(RELEASE_DIR) install
 	rm -rf $(RELEASE_DIR)/tmp
 	mkdir -p $(RELEASE_DIR)/usr/share/licenses/$(PACKAGE)
