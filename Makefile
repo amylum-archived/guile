@@ -24,6 +24,12 @@ GMP_TAR = /tmp/gmp.tar.gz
 GMP_DIR = /tmp/gmp
 GMP_PATH = --with-libgmp-prefix=$(GMP_DIR)/usr
 
+LIBUNISTRING_VERSION = 0.9.6-1
+LIBUNISTRING_URL = https://github.com/amylum/libunistring/releases/download/$(LIBUNISTRING_VERSION)/libunistring.tar.gz
+LIBUNISTRING_TAR = /tmp/libunistring.tar.gz
+LIBUNISTRING_DIR = /tmp/libunistring
+LIBUNISTRING_PATH = --with-liblibunistring-prefix=$(LIBUNISTRING_DIR)/usr
+
 .PHONY : default submodule deps manual container deps build version push local
 
 default: submodule container
@@ -46,12 +52,16 @@ deps:
 	mkdir $(GMP_DIR)
 	curl -sLo $(GMP_TAR) $(GMP_URL)
 	tar -x -C $(GMP_DIR) -f $(GMP_TAR)
+	rm -rf $(LIBUNISTRING_DIR) $(LIBUNISTRING_TAR)
+	mkdir $(LIBUNISTRING_DIR)
+	curl -sLo $(LIBUNISTRING_TAR) $(LIBUNISTRING_URL)
+	tar -x -C $(LIBUNISTRING_DIR) -f $(LIBUNISTRING_TAR)
 
 build: submodule deps
 	rm -rf $(BUILD_DIR)
 	cp -R upstream $(BUILD_DIR)
 	cd $(BUILD_DIR) && autoreconf -i
-	cd $(BUILD_DIR) && CC=musl-gcc CFLAGS='$(CFLAGS)' ./configure $(PATH_FLAGS) $(CONF_FLAGS) $(LIBTOOL_PATH) $(GMP_PATH)
+	cd $(BUILD_DIR) && CC=musl-gcc CFLAGS='$(CFLAGS)' ./configure $(PATH_FLAGS) $(CONF_FLAGS) $(LIBTOOL_PATH) $(GMP_PATH) $(LIBUNISTRING_PATH)
 	cd $(BUILD_DIR) && make DESTDIR=$(RELEASE_DIR) install
 	rm -rf $(RELEASE_DIR)/tmp
 	mkdir -p $(RELEASE_DIR)/usr/share/licenses/$(PACKAGE)
