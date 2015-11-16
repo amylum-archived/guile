@@ -30,6 +30,12 @@ LIBUNISTRING_TAR = /tmp/libunistring.tar.gz
 LIBUNISTRING_DIR = /tmp/libunistring
 LIBUNISTRING_PATH = --with-libunistring-prefix=$(LIBUNISTRING_DIR)/usr
 
+GC_VERSION = 7.4.2-1
+GC_URL = https://github.com/amylum/gc/releases/download/$(GC_VERSION)/gc.tar.gz
+GC_TAR = /tmp/gc.tar.gz
+GC_DIR = /tmp/gc
+GC_PATH = --with-libgc-prefix=$(GC_DIR)/usr
+
 .PHONY : default submodule deps manual container deps build version push local
 
 default: submodule container
@@ -56,12 +62,16 @@ deps:
 	mkdir $(LIBUNISTRING_DIR)
 	curl -sLo $(LIBUNISTRING_TAR) $(LIBUNISTRING_URL)
 	tar -x -C $(LIBUNISTRING_DIR) -f $(LIBUNISTRING_TAR)
+	rm -rf $(GC_DIR) $(GC_TAR)
+	mkdir $(GC_DIR)
+	curl -sLo $(GC_TAR) $(GC_URL)
+	tar -x -C $(GC_DIR) -f $(GC_TAR)
 
 build: submodule deps
 	rm -rf $(BUILD_DIR)
 	cp -R upstream $(BUILD_DIR)
 	cd $(BUILD_DIR) && autoreconf -i
-	cd $(BUILD_DIR) && CC=musl-gcc CFLAGS='$(CFLAGS)' ./configure $(PATH_FLAGS) $(CONF_FLAGS) $(LIBTOOL_PATH) $(GMP_PATH) $(LIBUNISTRING_PATH)
+	cd $(BUILD_DIR) && CC=musl-gcc CFLAGS='$(CFLAGS)' ./configure $(PATH_FLAGS) $(CONF_FLAGS) $(LIBTOOL_PATH) $(GMP_PATH) $(LIBUNISTRING_PATH) $(GC_PATH)
 	cd $(BUILD_DIR) && make DESTDIR=$(RELEASE_DIR) install
 	rm -rf $(RELEASE_DIR)/tmp
 	mkdir -p $(RELEASE_DIR)/usr/share/licenses/$(PACKAGE)
