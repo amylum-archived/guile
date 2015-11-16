@@ -18,6 +18,12 @@ LIBTOOL_TAR = /tmp/libtool.tar.gz
 LIBTOOL_DIR = /tmp/libtool
 LIBTOOL_PATH = -I$(LIBTOOL_DIR)/usr/include -L$(LIBTOOL_DIR)/usr/lib
 
+GMP_VERSION = 1.2-1
+GMP_URL = https://github.com/amylum/gmp/releases/download/$(GMP_VERSION)/gmp.tar.gz
+GMP_TAR = /tmp/gmp.tar.gz
+GMP_DIR = /tmp/gmp
+GMP_PATH = -I$(GMP_DIR)/usr/include -L$(GMP_DIR)/usr/lib
+
 .PHONY : default submodule deps manual container deps build version push local
 
 default: submodule container
@@ -36,12 +42,16 @@ deps:
 	mkdir $(LIBTOOL_DIR)
 	curl -sLo $(LIBTOOL_TAR) $(LIBTOOL_URL)
 	tar -x -C $(LIBTOOL_DIR) -f $(LIBTOOL_TAR)
+	rm -rf $(GMP_DIR) $(GMP_TAR)
+	mkdir $(GMP_DIR)
+	curl -sLo $(GMP_TAR) $(GMP_URL)
+	tar -x -C $(GMP_DIR) -f $(GMP_TAR)
 
 build: submodule deps
 	rm -rf $(BUILD_DIR)
 	cp -R upstream $(BUILD_DIR)
 	cd $(BUILD_DIR) && autoreconf -i
-	cd $(BUILD_DIR) && CC=musl-gcc CFLAGS='$(CFLAGS) $(LIBTOOL_PATH)' ./configure $(PATH_FLAGS) $(CONF_FLAGS)
+	cd $(BUILD_DIR) && CC=musl-gcc CFLAGS='$(CFLAGS) $(LIBTOOL_PATH) $(GMP_PATH)' ./configure $(PATH_FLAGS) $(CONF_FLAGS)
 	cd $(BUILD_DIR) && make DESTDIR=$(RELEASE_DIR) install
 	rm -rf $(RELEASE_DIR)/tmp
 	mkdir -p $(RELEASE_DIR)/usr/share/licenses/$(PACKAGE)
