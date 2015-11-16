@@ -28,7 +28,7 @@ LIBUNISTRING_VERSION = 0.9.6-1
 LIBUNISTRING_URL = https://github.com/amylum/libunistring/releases/download/$(LIBUNISTRING_VERSION)/libunistring.tar.gz
 LIBUNISTRING_TAR = /tmp/libunistring.tar.gz
 LIBUNISTRING_DIR = /tmp/libunistring
-LIBUNISTRING_PATH = --with-liblibunistring-prefix=$(LIBUNISTRING_DIR)/usr
+LIBUNISTRING_PATH = --with-libunistring-prefix=$(LIBUNISTRING_DIR)/usr
 
 .PHONY : default submodule deps manual container deps build version push local
 
