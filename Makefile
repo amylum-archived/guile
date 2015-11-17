@@ -5,7 +5,7 @@ BUILD_DIR = /tmp/$(PACKAGE)-build
 RELEASE_DIR = /tmp/$(PACKAGE)-release
 RELEASE_FILE = /tmp/$(PACKAGE).tar.gz
 PATH_FLAGS = --prefix=/usr --infodir=/tmp/trash
-CONF_FLAGS = 
+CONF_FLAGS = --disable-shared
 CFLAGS = -static -static-libgcc -Wl,-static -lc
 
 PACKAGE_VERSION = $$(git --git-dir=upstream/.git describe --tags | sed 's/v//')
@@ -34,7 +34,7 @@ GC_VERSION = 7.4.2-1
 GC_URL = https://github.com/amylum/gc/releases/download/$(GC_VERSION)/gc.tar.gz
 GC_TAR = /tmp/gc.tar.gz
 GC_DIR = /tmp/gc
-GC_PATH = --with-libgc-prefix=$(GC_DIR)/usr
+GC_PATH = -I$(GC_DIR)/usr/include -L$(GC_DIR)/usr/lib
 
 .PHONY : default submodule deps manual container deps build version push local
 
@@ -71,7 +71,7 @@ build: submodule deps
 	rm -rf $(BUILD_DIR)
 	cp -R upstream $(BUILD_DIR)
 	cd $(BUILD_DIR) && autoreconf -i
-	cd $(BUILD_DIR) && CC=musl-gcc CFLAGS='$(CFLAGS)' ./configure $(PATH_FLAGS) $(CONF_FLAGS) $(LIBTOOL_PATH) $(GMP_PATH) $(LIBUNISTRING_PATH) $(GC_PATH)
+	cd $(BUILD_DIR) && CC=musl-gcc CFLAGS='$(CFLAGS)' BDW_GC_CFLAGS='$(GC_PATH)' ./configure $(PATH_FLAGS) $(CONF_FLAGS) $(LIBTOOL_PATH) $(GMP_PATH) $(LIBUNISTRING_PATH)
 	cd $(BUILD_DIR) && make DESTDIR=$(RELEASE_DIR) install
 	rm -rf $(RELEASE_DIR)/tmp
 	mkdir -p $(RELEASE_DIR)/usr/share/licenses/$(PACKAGE)
