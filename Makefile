@@ -1,4 +1,4 @@
-PACKAGE = guild
+PACKAGE = guile
 ORG = amylum
 
 BUILD_DIR = /tmp/$(PACKAGE)-build
