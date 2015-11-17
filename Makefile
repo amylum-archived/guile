@@ -34,7 +34,7 @@ GC_VERSION = 7.4.2-1
 GC_URL = https://github.com/amylum/gc/releases/download/$(GC_VERSION)/gc.tar.gz
 GC_TAR = /tmp/gc.tar.gz
 GC_DIR = /tmp/gc
-GC_PATH = -I$(GC_DIR)/usr/include -L$(GC_DIR)/usr/lib
+GC_PATH = -I$(GC_DIR)/usr/include -L$(GC_DIR)/usr/lib -lgc
 
 .PHONY : default submodule deps manual container deps build version push local
 
