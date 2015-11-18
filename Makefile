@@ -72,6 +72,7 @@ deps:
 	mkdir $(GC_DIR)
 	curl -sLo $(GC_TAR) $(GC_URL)
 	tar -x -C $(GC_DIR) -f $(GC_TAR)
+	rm /tmp/gc/usr/lib/libgc.la
 	rm -rf $(LIBATOMIC_OPS_DIR) $(LIBATOMIC_OPS_TAR)
 	mkdir $(LIBATOMIC_OPS_DIR)
 	curl -sLo $(LIBATOMIC_OPS_TAR) $(LIBATOMIC_OPS_URL)
