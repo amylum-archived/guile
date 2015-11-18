@@ -36,6 +36,12 @@ GC_TAR = /tmp/gc.tar.gz
 GC_DIR = /tmp/gc
 GC_PATH = -I$(GC_DIR)/usr/include -L$(GC_DIR)/usr/lib -lgc
 
+LIBATOMIC_OPS_VERSION = 7.4.2-1
+LIBATOMIC_OPS_URL = https://github.com/amylum/libatomic_ops/releases/download/$(LIBATOMIC_OPS_VERSION)/libatomic_ops.tar.gz
+LIBATOMIC_OPS_TAR = /tmp/libatomic_ops.tar.gz
+LIBATOMIC_OPS_DIR = /tmp/libatomic_ops
+LIBATOMIC_OPS_PATH = -I$(LIBATOMIC_OPS_DIR)/usr/include -L$(LIBATOMIC_OPS_DIR)/usr/lib
+
 .PHONY : default submodule deps manual container deps build version push local
 
 default: submodule container
@@ -66,12 +72,16 @@ deps:
 	mkdir $(GC_DIR)
 	curl -sLo $(GC_TAR) $(GC_URL)
 	tar -x -C $(GC_DIR) -f $(GC_TAR)
+	rm -rf $(LIBATOMIC_OPS_DIR) $(LIBATOMIC_OPS_TAR)
+	mkdir $(LIBATOMIC_OPS_DIR)
+	curl -sLo $(LIBATOMIC_OPS_TAR) $(LIBATOMIC_OPS_URL)
+	tar -x -C $(LIBATOMIC_OPS_DIR) -f $(LIBATOMIC_OPS_TAR)
 
 build: submodule deps
 	rm -rf $(BUILD_DIR)
 	cp -R upstream $(BUILD_DIR)
 	cd $(BUILD_DIR) && autoreconf -i
-	cd $(BUILD_DIR) && CC=musl-gcc CFLAGS='$(CFLAGS) $(GC_PATH)' BDW_GC_CFLAGS='$(GC_PATH)' BDW_GC_LIBS='$(GC_PATH)' ./configure $(PATH_FLAGS) $(CONF_FLAGS) $(LIBTOOL_PATH) $(GMP_PATH) $(LIBUNISTRING_PATH)
+	cd $(BUILD_DIR) && CC=musl-gcc CFLAGS='$(CFLAGS) $(GC_PATH) $(LIBATOMIC_OPS_PATH)' BDW_GC_CFLAGS='$(GC_PATH)' BDW_GC_LIBS='$(GC_PATH)' ./configure $(PATH_FLAGS) $(CONF_FLAGS) $(LIBTOOL_PATH) $(GMP_PATH) $(LIBUNISTRING_PATH)
 	cd $(BUILD_DIR) && make DESTDIR=$(RELEASE_DIR) install
 	rm -rf $(RELEASE_DIR)/tmp
 	mkdir -p $(RELEASE_DIR)/usr/share/licenses/$(PACKAGE)
