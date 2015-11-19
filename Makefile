@@ -46,7 +46,7 @@ LIBFFI_VERSION = 3.2.1-1
 LIBFFI_URL = https://github.com/amylum/libffi/releases/download/$(LIBFFI_VERSION)/libffi.tar.gz
 LIBFFI_TAR = /tmp/libffi.tar.gz
 LIBFFI_DIR = /tmp/libffi
-LIBFFI_PATH = -I$(LIBFFI_DIR)/usr/include -L$(LIBFFI_DIR)/usr/lib -llibffi
+LIBFFI_PATH = -I$(LIBFFI_DIR)/usr/lib/libffi-$(word 1, $(subst -, ,$(LIBFFI_VERSION)))/include -L$(LIBFFI_DIR)/usr/lib -lffi
 
 .PHONY : default submodule deps manual container deps build version push local
 
