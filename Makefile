@@ -42,6 +42,12 @@ LIBATOMIC_OPS_TAR = /tmp/libatomic_ops.tar.gz
 LIBATOMIC_OPS_DIR = /tmp/libatomic_ops
 LIBATOMIC_OPS_PATH = -I$(LIBATOMIC_OPS_DIR)/usr/include -L$(LIBATOMIC_OPS_DIR)/usr/lib
 
+LIBFFI_VERSION = 3.2.1-1
+LIBFFI_URL = https://github.com/amylum/libffi/releases/download/$(LIBFFI_VERSION)/libffi.tar.gz
+LIBFFI_TAR = /tmp/libffi.tar.gz
+LIBFFI_DIR = /tmp/libffi
+LIBFFI_PATH = -I$(LIBFFI_DIR)/usr/include -L$(LIBFFI_DIR)/usr/lib -llibffi
+
 .PHONY : default submodule deps manual container deps build version push local
 
 default: submodule container
@@ -77,12 +83,16 @@ deps:
 	mkdir $(LIBATOMIC_OPS_DIR)
 	curl -sLo $(LIBATOMIC_OPS_TAR) $(LIBATOMIC_OPS_URL)
 	tar -x -C $(LIBATOMIC_OPS_DIR) -f $(LIBATOMIC_OPS_TAR)
+	rm -rf $(LIBFFI_DIR) $(LIBFFI_TAR)
+	mkdir $(LIBFFI_DIR)
+	curl -sLo $(LIBFFI_TAR) $(LIBFFI_URL)
+	tar -x -C $(LIBFFI_DIR) -f $(LIBFFI_TAR)
 
 build: submodule deps
 	rm -rf $(BUILD_DIR)
 	cp -R upstream $(BUILD_DIR)
 	cd $(BUILD_DIR) && autoreconf -i
-	cd $(BUILD_DIR) && CC=musl-gcc CFLAGS='$(CFLAGS) $(GC_PATH) $(LIBATOMIC_OPS_PATH)' BDW_GC_CFLAGS='$(GC_PATH)' BDW_GC_LIBS='$(GC_PATH)' ./configure $(PATH_FLAGS) $(CONF_FLAGS) $(LIBTOOL_PATH) $(GMP_PATH) $(LIBUNISTRING_PATH)
+	cd $(BUILD_DIR) && CC=musl-gcc CFLAGS='$(CFLAGS) $(LIBATOMIC_OPS_PATH)' BDW_GC_CFLAGS='$(GC_PATH)' BDW_GC_LIBS='$(GC_PATH)' LIBFFI_CFLAGS='$(LIBFFI_PATH)' LIBFFI_LIBS='$(LIBFFI_PATH)' ./configure $(PATH_FLAGS) $(CONF_FLAGS) $(LIBTOOL_PATH) $(GMP_PATH) $(LIBUNISTRING_PATH)
 	cd $(BUILD_DIR) && make DESTDIR=$(RELEASE_DIR) install
 	rm -rf $(RELEASE_DIR)/tmp
 	mkdir -p $(RELEASE_DIR)/usr/share/licenses/$(PACKAGE)
