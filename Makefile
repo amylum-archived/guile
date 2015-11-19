@@ -30,7 +30,7 @@ LIBUNISTRING_TAR = /tmp/libunistring.tar.gz
 LIBUNISTRING_DIR = /tmp/libunistring
 LIBUNISTRING_PATH = --with-libunistring-prefix=$(LIBUNISTRING_DIR)/usr
 
-GC_VERSION = 7.4.2-1
+GC_VERSION = 7.4.2-2
 GC_URL = https://github.com/amylum/gc/releases/download/$(GC_VERSION)/gc.tar.gz
 GC_TAR = /tmp/gc.tar.gz
 GC_DIR = /tmp/gc
