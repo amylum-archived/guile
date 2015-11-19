@@ -91,6 +91,7 @@ deps:
 build: submodule deps
 	rm -rf $(BUILD_DIR)
 	cp -R upstream $(BUILD_DIR)
+	sed -i 's/strcoll_l/strtol_l/g' $(BUILD_DIR)/configure.a
 	cd $(BUILD_DIR) && autoreconf -i
 	cd $(BUILD_DIR) && CC=musl-gcc CFLAGS='$(CFLAGS) $(LIBATOMIC_OPS_PATH)' BDW_GC_CFLAGS='$(GC_PATH)' BDW_GC_LIBS='$(GC_PATH)' LIBFFI_CFLAGS='$(LIBFFI_PATH)' LIBFFI_LIBS='$(LIBFFI_PATH)' ./configure $(PATH_FLAGS) $(CONF_FLAGS) $(LIBTOOL_PATH) $(GMP_PATH) $(LIBUNISTRING_PATH)
 	cd $(BUILD_DIR) && make DESTDIR=$(RELEASE_DIR) install
