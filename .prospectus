@@ -1,9 +1,9 @@
 item do
   expected do
     url_xpath
-    url 'http://git.savannah.gnu.org/gitweb/?p=guile.git;a=tags'
-    xpath '/html/body/table/tr[1]/td[2]/a'
-    regex /^v([\d.]+)$/
+    url 'http://www.gnu.org/software/guile/download/'
+    xpath '/html/body/main/section/h1'
+    regex /^Download Guile ([\d.]+)$/
   end
 
   actual do
