@@ -12,37 +12,37 @@ PACKAGE_VERSION = $$(git --git-dir=upstream/.git describe --tags | sed 's/v//')
 PATCH_VERSION = $$(cat version)
 VERSION = $(PACKAGE_VERSION)-$(PATCH_VERSION)
 
-LIBTOOL_VERSION = 2.4.6-1
+LIBTOOL_VERSION = 2.4.6-2
 LIBTOOL_URL = https://github.com/amylum/libtool/releases/download/$(LIBTOOL_VERSION)/libtool.tar.gz
 LIBTOOL_TAR = /tmp/libtool.tar.gz
 LIBTOOL_DIR = /tmp/libtool
 LIBTOOL_PATH = --with-libltdl-prefix=$(LIBTOOL_DIR)/usr
 
-GMP_VERSION = 6.1.0-1
+GMP_VERSION = 6.1.0-3
 GMP_URL = https://github.com/amylum/gmp/releases/download/$(GMP_VERSION)/gmp.tar.gz
 GMP_TAR = /tmp/gmp.tar.gz
 GMP_DIR = /tmp/gmp
 GMP_PATH = --with-libgmp-prefix=$(GMP_DIR)/usr
 
-LIBUNISTRING_VERSION = 0.9.6-1
+LIBUNISTRING_VERSION = 0.9.6-2
 LIBUNISTRING_URL = https://github.com/amylum/libunistring/releases/download/$(LIBUNISTRING_VERSION)/libunistring.tar.gz
 LIBUNISTRING_TAR = /tmp/libunistring.tar.gz
 LIBUNISTRING_DIR = /tmp/libunistring
 LIBUNISTRING_PATH = --with-libunistring-prefix=$(LIBUNISTRING_DIR)/usr
 
-GC_VERSION = 7.4.2-2
+GC_VERSION = 7.4.2-3
 GC_URL = https://github.com/amylum/gc/releases/download/$(GC_VERSION)/gc.tar.gz
 GC_TAR = /tmp/gc.tar.gz
 GC_DIR = /tmp/gc
 GC_PATH = -I$(GC_DIR)/usr/include -L$(GC_DIR)/usr/lib -lgc
 
-LIBATOMIC_OPS_VERSION = 7.4.2-1
+LIBATOMIC_OPS_VERSION = 7.4.2-2
 LIBATOMIC_OPS_URL = https://github.com/amylum/libatomic_ops/releases/download/$(LIBATOMIC_OPS_VERSION)/libatomic_ops.tar.gz
 LIBATOMIC_OPS_TAR = /tmp/libatomic_ops.tar.gz
 LIBATOMIC_OPS_DIR = /tmp/libatomic_ops
 LIBATOMIC_OPS_PATH = -I$(LIBATOMIC_OPS_DIR)/usr/include -L$(LIBATOMIC_OPS_DIR)/usr/lib
 
-LIBFFI_VERSION = 3.2.1-2
+LIBFFI_VERSION = 3.2.1-3
 LIBFFI_URL = https://github.com/amylum/libffi/releases/download/$(LIBFFI_VERSION)/libffi.tar.gz
 LIBFFI_TAR = /tmp/libffi.tar.gz
 LIBFFI_DIR = /tmp/libffi
