@@ -18,7 +18,7 @@ LIBTOOL_TAR = /tmp/libtool.tar.gz
 LIBTOOL_DIR = /tmp/libtool
 LIBTOOL_PATH = --with-libltdl-prefix=$(LIBTOOL_DIR)/usr
 
-GMP_VERSION = 6.1.0-3
+GMP_VERSION = 6.1.1-4
 GMP_URL = https://github.com/amylum/gmp/releases/download/$(GMP_VERSION)/gmp.tar.gz
 GMP_TAR = /tmp/gmp.tar.gz
 GMP_DIR = /tmp/gmp
