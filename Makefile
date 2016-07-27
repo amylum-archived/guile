@@ -5,7 +5,7 @@ BUILD_DIR = /tmp/$(PACKAGE)-build
 RELEASE_DIR = /tmp/$(PACKAGE)-release
 RELEASE_FILE = /tmp/$(PACKAGE).tar.gz
 PATH_FLAGS = --prefix=/usr --infodir=/tmp/trash
-CONF_FLAGS =
+CONF_FLAGS = --disable-static --without-libreadline-prefix --host=x86_64-unknown-linux-gnu --build=x86_64-pc-linux-gnu
 CFLAGS = -fPIC
 
 PACKAGE_VERSION = $$(git --git-dir=upstream/.git describe --tags | sed 's/v//')
@@ -87,6 +87,8 @@ deps:
 	mkdir $(LIBFFI_DIR)
 	curl -sLo $(LIBFFI_TAR) $(LIBFFI_URL)
 	tar -x -C $(LIBFFI_DIR) -f $(LIBFFI_TAR)
+	find /tmp -name '*.la' -delete
+	find /tmp -name '*.pc' -delete
 
 build: submodule deps
 	rm -rf $(BUILD_DIR)
