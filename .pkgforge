@@ -25,13 +25,11 @@ configure_flags(
   'with-libunistring-prefix': "#{dep(:libunistring)}/usr"
 )
 
-cflags [
-  "-I#{dep(:'libatomic_ops')}/usr/include",
-  "-L#{dep(:'libatomic_ops')}/usr/lib"
-]
+cflags
+cflags ["-I#{dep(:libffi)}/usr/lib/libffi-3.2.1/include"]
 harden
 
-patch 'strcoll.patch'
+#patch 'strcoll.patch'
 
 build do
   File.open("#{tmpdir(:build)}/.tarball-version", 'w') do |fh|
@@ -39,8 +37,7 @@ build do
   end
   run 'autoreconf -i'
   configure(
-    'BDW_GC_LIBS' => "-I#{@forge.dep(:gc)}/usr/include -L#{@forge.dep(:gc)}/usr/lib -lgc",
-    'LIBFFI_CFLAGS' => "-I#{@forge.dep(:libffi)}/usr/lib/libffi-#{@forge.deps(:libffi).split('-').first}/include -L#{@forge.dep(:libffi)}/usr/lib",
+    'LIBFFI_CFLAGS' => "-I#{dep(:libffi)}/usr/lib/libffi-#{@forge.deps[:libffi].split('-').first}/include -L#{dep(:libffi)}/usr/lib",
     'LIBFFI_LIBS' => '-lffi'
   )
   make
