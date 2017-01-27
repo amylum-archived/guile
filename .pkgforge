@@ -7,7 +7,7 @@ deps(
   libtool: '2.4.6-2',
   gmp: '6.1.2-1',
   libunistring: '0.9.7-1',
-  gc: '7.6.0-13',
+  gc: '7.6.0-14',
   'libatomic_ops': '7.4.4-4',
   libffi: '3.2.1-4'
 )
