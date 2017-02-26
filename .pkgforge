@@ -37,7 +37,7 @@ build do
   end
   run 'autoreconf -i'
   configure(
-    'LIBFFI_CFLAGS' => "-I#{dep(:libffi)}/usr/lib/libffi-#{@forge.deps[:libffi].split('-').first}/include -L#{dep(:libffi)}/usr/lib",
+    'LIBFFI_CFLAGS' => "-I#{dep(:libffi)}/usr/lib/libffi-#{@forge.deps[:libffi][:version].split('-').first}/include -L#{dep(:libffi)}/usr/lib",
     'LIBFFI_LIBS' => '-lffi'
   )
   make
