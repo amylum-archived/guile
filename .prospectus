@@ -4,9 +4,9 @@ Prospectus.extra_dep('file', 'prospectus_pkgforge')
 item do
   expected do
     url_xpath
-    url 'http://www.gnu.org/software/guile/download/'
-    xpath '/html/body/main/section/h1'
-    regex /^Download Guile ([\d.]+)$/
+    url 'http://ftp.gnu.org/pub/gnu/guile/?C=M;O=D'
+    xpath '/html/body/table/tr[4]/td[2]/a'
+    regex /^guile-([\d.]+)\.tar\.xz\.sig$/
   end
 
   actual do
