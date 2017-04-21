@@ -6,7 +6,7 @@ item do
     url_xpath
     url 'http://ftp.gnu.org/pub/gnu/guile/?C=M;O=D'
     xpath '/html/body/table/tr[4]/td[2]/a'
-    regex /^guile-([\d.]+)\.tar\.xz\.sig$/
+    regex /^guile-([\d.]+)\.tar\..z\.sig$/
   end
 
   actual do
