@@ -29,8 +29,6 @@ cflags
 cflags ["-I#{dep(:libffi)}/usr/lib/libffi-3.2.1/include"]
 harden
 
-#patch 'strcoll.patch'
-
 build do
   File.open("#{tmpdir(:build)}/.tarball-version", 'w') do |fh|
     fh << `git --git-dir=upstream/.git describe --tags`.chomp
@@ -40,7 +38,7 @@ build do
     'LIBFFI_CFLAGS' => "-I#{dep(:libffi)}/usr/lib/libffi-#{@forge.deps[:libffi][:version].split('-').first}/include -L#{dep(:libffi)}/usr/lib",
     'LIBFFI_LIBS' => '-lffi'
   )
-  make
+  run 'make dist', default_env
   install
 end
 
