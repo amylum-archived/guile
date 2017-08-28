@@ -4,12 +4,30 @@ org 'amylum'
 licenses 'COPYING'
 
 deps(
-  libtool: '2.4.6-2',
-  gmp: '6.1.2-1',
-  libunistring: '0.9.7-1',
-  gc: '7.6.0-20',
-  'libatomic_ops': '7.4.6-1',
-  libffi: '3.2.1-4'
+  libtool: {
+    version: '2.4.6-2',
+    checksum: '5a3a7cd180e16e399501a10cc13da752e4d4e3f86b73ae9afa5ffa9f63b86d3a'
+  },
+  gmp: {
+    version: '6.1.2-1',
+    checksum: '12515de758fa11b2b3d87b347d0593fc8bde37b32a6c609cbddd09473e180b08'
+  },
+  libunistring: {
+    version: '0.9.7-1',
+    checksum: 'e3a70df2de3dfbcaae3c1dc01b1ede76bff031e9628e7fbbb4856f39dd0b3447'
+  },
+  gc: {
+    version: '7.6.0-20',
+    checksum: '548c03517ca9f30403803a557a916a1d0df7f0d8723af5f55afe2337ecfee401'
+  },
+  libatomic_ops: {
+    version: '7.4.6-1',
+    checksum: '81689a977bd7950537ff59c50c673e3f5b96d8ced8a3507b56c118a589f724dd'
+  },
+  libffi: {
+    version: '3.2.1-4',
+    checksum: '7d8e4e3d098e095ee0e37d00c5b6ac5ab4623a80e45eb3a625f1d97c5781e03e'
+  }
 )
 remove_linker_archives
 remove_pkgconfig_files
