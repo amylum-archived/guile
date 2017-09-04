@@ -17,8 +17,8 @@ deps(
     checksum: 'e3a70df2de3dfbcaae3c1dc01b1ede76bff031e9628e7fbbb4856f39dd0b3447'
   },
   gc: {
-    version: '7.6.0-20',
-    checksum: '548c03517ca9f30403803a557a916a1d0df7f0d8723af5f55afe2337ecfee401'
+    version: '7.6.0-21',
+    checksum: '4260abe686a0d31277c3bc50a6000c43a6bf312008a03700b41330fa17f84e0d'
   },
   libatomic_ops: {
     version: '7.4.6-1',
