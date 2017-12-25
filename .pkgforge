@@ -21,8 +21,8 @@ deps(
     checksum: '9ad3c4754762baea414ed68c8fa14bf7171f860a5c72a2e9cc6a887983f7ffc9'
   },
   libatomic_ops: {
-    version: '7.4.8-1',
-    checksum: '991dafdaf4288cd14ccb5e7dc6be689849323fcd92048040dec5d65813776309'
+    version: '7.6.2-1',
+    checksum: '28a35ae9281d48c9b678971ecf205c13a2176f64d27a3d566589e71c39e28b7c'
   },
   libffi: {
     version: '3.2.1-4',
