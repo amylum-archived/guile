@@ -13,8 +13,8 @@ deps(
     checksum: '12515de758fa11b2b3d87b347d0593fc8bde37b32a6c609cbddd09473e180b08'
   },
   libunistring: {
-    version: '0.9.9-1',
-    checksum: 'd31eb1193caf41d9bd9f27e92ef1ecdddcac0fb6de51ae2eb00b0c1c806cb6f1'
+    version: '0.9.10-1',
+    checksum: '270e10a91478e7d3174cf03ffdc22f508276c784fa6228d5935347d90236319c'
   },
   gc: {
     version: '7.6.6-2',
