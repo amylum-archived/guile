@@ -48,13 +48,16 @@ cflags ["-I#{dep(:libffi)}/usr/lib/libffi-3.2.1/include"]
 harden
 
 build do
-  File.open("#{tmpdir(:build)}/.tarball-version", 'w') do |fh|
-    fh << `git --git-dir=upstream/.git describe --tags`.chomp
-  end
-  run 'autoreconf -i'
+  run './autogen.sh'
+  run './configure'
+  run "make install DESTDIR=#{tmpdir(:bootstrap)}"
+
+  run 'make clean'
+
   configure(
     'LIBFFI_CFLAGS' => "-I#{dep(:libffi)}/usr/lib/libffi-#{@forge.deps[:libffi][:version].split('-').first}/include -L#{dep(:libffi)}/usr/lib",
-    'LIBFFI_LIBS' => '-lffi'
+    'LIBFFI_LIBS' => '-lffi',
+    'GUILE_FOR_BUILD' => "#{tmpdir(:bootstrap)}/bin/guile"
   )
   make
   install
