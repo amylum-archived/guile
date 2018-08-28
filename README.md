@@ -1,7 +1,7 @@
 guile
 ==========
 
-[![Build Status](https://img.shields.io/circleci/project/amylum/guile.svg)](https://circleci.com/gh/amylum/guile)
+[![Build Status](https://img.shields.io/travis/com/amylum/guile.svg)](https://travis-ci.com/amylum/guile)
 [![GitHub release](https://img.shields.io/github/release/amylum/guile.svg)](https://github.com/amylum/guile/releases)
 [![GPL Licensed](http://img.shields.io/badge/license-GPL-green.svg)](https://tldrlegal.com/license/gnu-general-public-license-v3-(gpl-3))
 
