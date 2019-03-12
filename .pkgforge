@@ -17,12 +17,12 @@ deps(
     checksum: '270e10a91478e7d3174cf03ffdc22f508276c784fa6228d5935347d90236319c'
   },
   gc: {
-    version: '8.0.2-1',
-    checksum: '72f604fb68a493b8f7294440ab0ec86a0c82b65fcf716f8342a0160743f0c17c'
+    version: '8.0.4-2',
+    checksum: 'fd9126f40bb79b13e032ea579989893458a5a8d6d75d6fb7d7ed2452ac9d4aaa'
   },
   libatomic_ops: {
-    version: '7.6.8-1',
-    checksum: '3de23537b9143da541a6c30d8086913efc06cbf529e2599432bca5a827bc9397'
+    version: '7.6.10-1',
+    checksum: '6a9cfd8ebd86b92ca46cc43e57998bbd2e4941e58dede2486269209c31f5bdeb'
   },
   libffi: {
     version: '3.2.1-4',
